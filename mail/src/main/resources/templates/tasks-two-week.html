@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи (срок сдачи заказчику менее 14 дней)</title>
+</head>
+<body>
+
+<div th:switch="${mailtasks}">
+    <h2 th:if="${ #lists.isEmpty(mailtasks)}">Задачи, со сроком сдачи заказчику менее двух недель, отсутствуют</h2>
+    <div th:if="${not #lists.isEmpty(mailtasks)}">
+        <h2>Задачи, со сроком сдачи заказчику менее двух недель:</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Номер задачи</th>
+                <th>Наименование</th>
+                <th>Статус</th>
+                <th>Исполнитель</th>
+                <th>Приоритет</th>
+                <th>Дата начала</th>
+                <th>Срок сдачи заказчику</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mailtask : ${mailtasks}">
+                <td>
+                    <a target="_blank" th:text=" ${mailtask.id}" th:href="@{'http://redmine.soctech.loc/issues/' + ${mailtask.id}}">Номер
+                        задачи</a>
+                </td>
+                <td th:text="${mailtask.name}">Наименование</td>
+                <td th:text="${mailtask.status}">Статус</td>
+                <td th:text="${mailtask.executor}">Исполнитель</td>
+                <td th:text="${mailtask.priority}">Приоритет</td>
+                <td th:text="${mailtask.startDate}">Дата создания</td>
+                <td th:text="${mailtask.deadline}">Срок сдачи заказчику</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="padding-top: 30px">
+        <tr>
+            <td>
+                <a target="_blank" th:href="@{'http://redmine.soctech.loc/issues?utf8=%E2%9C%93&set_filter=1&sort=id%3Adesc&f%5B%5D=status_id&op%5Bstatus_id%5D=o&f%5B%5D=cf_6&op%5Bcf_6%5D=*&f%5B%5D=&c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=subject&c%5B%5D=assigned_to&c%5B%5D=updated_on&c%5B%5D=cf_6&group_by=&t%5B%5D='}">Все
+                    задачи с заполненным полем "Срок сдачи Заказчику"</a>
+            </td>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

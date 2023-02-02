@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отчет по трудозатратам сотрудников на системах ФКУ СОЦТЕХ</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+        }
+
+        table {
+            font-family: Verdana, sans-serif;
+            font-size: 12px;
+            margin-bottom: 14.4px;
+            overflow-x: auto;
+            padding: 1px;
+            position: relative;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            padding: 3px;
+            border: 1px solid #000;
+        }
+
+        th {
+            background: HSL(0, 0%, 93.3%);
+        }
+
+        tbody tr#thirdtable:hover {
+            background: #FFFFE0;
+        }
+    </style>
+</head>
+<body>
+<h3>Отчет о трудозатратах сотрудников, в период:</h3>
+<div>
+    <form action="#" th:action="@{/view-employee-for-period/}" method="get">
+        <label for="from">Дата начала отчетного периода</label>
+        <input name="from" type="date" th:value="*{from}" id="from" placeholder="чч-мм-гггг">
+        <label for="to">Дата конца отчетного периода</label>
+        <input name="to" type="date" th:value="*{to}" id="to" placeholder='чч-мм-гггг'>
+        <button type="submit">Сформировать отчет</button>
+        <!--    <input type="submit" value="Сформировать отчет">-->
+    </form>
+</div>
+
+
+<div style="padding-top: 30px" th:switch="${employees}">
+    <h2>Список систем: </h2>
+    <div th:case="*">
+
+        <td class="td">
+            <div class="section"></div>
+            <table data-state="open" border="1">
+                <tr>
+                    <td>
+                        <thead>
+                        <tr>
+                            <th>№ п/п</th>
+                            <th>Ф.И. сотрудника</th>
+                            <th>Итого часов</th>
+                            <th>Подробности</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="employee : ${employees}">
+                            <td th:text="${employee.id}">№ п/п</td>
+                            <td th:text="${employee.name}">Ф.И. сотрудника</td>
+                            <td th:text="${employee.hours}">Итого часов</td>
+                            <td>
+                                <div class="section" align="center">+</div>
+                                <table data-state="close" border="1">
+                                    <thead>
+                                    <tr>
+                                        <th>№ п/п</th>
+                                        <th>Дата</th>
+                                        <th>Итого часов</th>
+                                        <th>Подробности дня</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="day:${employee.days}">
+                                        <td th:text="${day.id}">№ п/п</td>
+                                        <td th:text="${day.date}">Дата</td>
+                                        <td th:text="${day.hours}">Итого часов</td>
+                                        <td>
+                                            <div class="section" align="center">+</div>
+                                            <table data-state="close" border="1">
+                                                <thead>
+                                                <tr>
+
+                                                    <th>Номер задачи</th>
+                                                    <th>Наименование задачи</th>
+                                                    <th>Коментарий</th>
+                                                    <th>Итого часов</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr id="thirdtable" th:each="issue : ${day.issues}">
+                                                        <td th:if="${issue.systemId == 0}">
+                                                            <a target="_blank" th:text=" ${issue.id}"
+                                                               th:href="@{'http://redmine.soctech.loc/issues/' + ${issue.id}}">Номер
+                                                                задачи</a>
+                                                        </td>
+                                                        <td th:if="${issue.systemId == 1}">
+                                                            <a target="_blank" th:text=" ${issue.id}"
+                                                               th:href="@{'https://portal.soctech-it.ru/company/personal/user/' + ${issue.userId} + '/tasks/task/view/' + ${issue.id}}">Номер
+                                                                задачи</a>
+                                                        </td>
+                                                        <td th:text="${issue.name}">Наименование задачи</td>
+                                                        <td th:text="${issue.comments}">Коментарий</td>
+                                                        <td th:text="${issue.hours}">Итого часов</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+            </table>
+        </td>
+
+        <div style="padding-top: 30px">
+            <tr>
+                <td>
+                    <a th:href="@{'/main-page'}">Вернуться на главную страницу</a>
+                </td>
+            </tr>
+        </div>
+    </div>
+</div>
+
+<!--ФУНЦИИ ДЛЯ РАЗВЕРТЫВАНИЯ(СВЕРТЫВНИЯ) ВЛОЖЕННЫХ ТАБЛИЦ-->
+<script>
+    window.onload = () => {
+        const sections = document.querySelectorAll(".section");
+
+        for (let i = 0; i < sections.length; i++) {
+            sections[i].addEventListener('click', function (event) {
+                const table = this.nextElementSibling;
+
+                table.dataset.state === 'close' ? table.dataset.state = 'open' : table.dataset.state = 'close';
+            });
+        }
+    }
+</script>
+
+<style>
+    .section {
+        cursor: pointer;
+    }
+
+    table[data-state="close"] {
+        display: none;
+    }
+
+    table[data-state="open"] {
+        display: block;
+    }
+</style>
+
+</body>
+</html>

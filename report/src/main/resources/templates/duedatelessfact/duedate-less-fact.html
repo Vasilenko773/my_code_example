@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи трудоза траты для которых превышают ожидания</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+        }
+        table {
+            font-family: Verdana, sans-serif;
+            font-size: 12px;
+            margin-bottom: 14.4px;
+            overflow-x: auto;
+            padding: 1px;
+            position: relative;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 3px;
+            border: 1px solid #000;
+        }
+        th {
+            background: HSL(0, 0%, 93.3%);
+        }
+        tbody tr:hover {
+            background: #FFFFE0;
+        }
+    </style>
+</head>
+<body>
+
+<div th:switch="${tasks}">
+    <h2 th:if="${ #lists.isEmpty(tasks)}">Задачи отсутствуют</h2>
+    <div th:if="${not #lists.isEmpty(tasks)}">
+        <h2>Задачи, трудозатраты на которые превышают ожидания:</h2>
+        <table  border="1">
+            <thead>
+            <tr>
+                <th>Номер задачи</th>
+                <th>Наименование</th>
+                <th>Исполнитель</th>
+                <th>Статус</th>
+                <th>Приоритет</th>
+                <th>Оценка временых затрат</th>
+                <th>Трудозатраты</th>
+                <th>Дата создания</th>
+                <th>Срок завершения</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <td>
+                    <a target="_blank" th:text=" ${task.id}" th:href="@{'http://redmine.soctech.loc/issues/' + ${task.id}}">Номер задачи</a>
+                </td>
+                <td th:text="${task.name}">Наименование</td>
+                <td th:text="${task.executor}">Исполнитель</td>
+                <td th:text="${task.status}">Статус</td>
+                <td th:text="${task.priority}">Приоритет</td>
+                <td th:text="${task.estimatedHours}">Оценка временых затрат</td>
+                <td th:text="${task.hours}">Трудозатраты</td>
+                <td th:text="${task.startDate}">Дата создания</td>
+                <td th:text="${task.deadline}">Срок завершения</td>
+            </tr>
+            </tbody>
+        </table>
+        <tr>
+            <td>
+                <a th:href="@{'/main-page'}">Вернуться на главную страницу</a>
+            </td>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

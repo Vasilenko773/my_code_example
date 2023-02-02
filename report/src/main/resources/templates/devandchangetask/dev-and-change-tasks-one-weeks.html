@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Срок сдачи заказчику менее 7 дней</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+        }
+        table {
+            font-family: Verdana, sans-serif;
+            font-size: 12px;
+            margin-bottom: 14.4px;
+            overflow-x: auto;
+            padding: 1px;
+            position: relative;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 3px;
+            border: 1px solid #000;
+        }
+        th {
+            background: HSL(0, 0%, 93.3%);
+        }
+        tbody tr:hover {
+            background: #FFFFE0;
+        }
+    </style>
+</head>
+<body>
+
+<div th:switch="${tasks}">
+    <h2 th:if="${ #lists.isEmpty(tasks)}">Задачи, срок сдачи заказчику менее 7 дней, остуствуют</h2>
+    <div th:if="${not #lists.isEmpty(tasks)}">
+        <h2>Задачи, со сроком сдачи заказчику менее недели:</h2>
+        <table  border="1">
+            <thead>
+            <tr>
+                <th>Номер задачи</th>
+                <th>Наименование</th>
+                <th>Статус</th>
+                <th>Исполнитель</th>
+                <th>Приоритет</th>
+                <th>Дата начала</th>
+                <th>Срок сдачи заказчику</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <td>
+                    <a target="_blank" th:text=" ${task.id}" th:href="@{'http://redmine.soctech.loc/issues/' + ${task.id}}">Номер задачи</a>
+                </td>
+                <td th:text="${task.name}">Наименование</td>
+                <td th:text="${task.status}">Статус</td>
+                <td th:text="${task.executor}">Исполнитель</td>
+                <td th:text="${task.priority}">Приоритет</td>
+                <td th:text="${task.startDate}">Дата создания</td>
+                <td th:text="${task.deadline}">Срок сдачи заказчику</td>
+            </tr>
+            </tbody>
+        </table>
+        <tr>
+            <td>
+                <a th:href="@{'/main-page'}">Вернуться на главную страницу</a>
+            </td>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

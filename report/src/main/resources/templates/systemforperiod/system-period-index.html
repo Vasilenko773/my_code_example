@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма для указания периода отчета по трудозатратам, на системах ФКУ СОЦТЕХ</title>
+</head>
+<body>
+<h2>Отчет о трудозатратах сотрудников по проектам, в период:</h2>
+<div>
+<form action="#" th:action="@{/view-systems-for-period/}" method="get">
+    <label for="from">Дата начала отчетного периода</label>
+    <input name="from" type="date" th:value="*{start}" id="from" placeholder="чч-мм-гггг">
+    <label for="to">Дата конца отчетного периода</label>
+    <input name="to" type="date" th:value="*{finish}" id="to" placeholder='${finish}'>
+    <button type="submit">Сформировать отчет</button>
+<!--    <input type="submit" value="Сформировать отчет">-->
+
+</form>
+</div>
+<td>
+    <a th:href="@{'/main-page'}">Вернуться на главную страницу</a>
+</td>
+</body>
+</html>

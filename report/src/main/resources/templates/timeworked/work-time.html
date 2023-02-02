@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Рабочее время сотрудников за 14 дней</title>
+</head>
+<style>
+    body {
+        font-family: Verdana, sans-serif;
+    }
+    table {
+        font-family: Verdana, sans-serif;
+        font-size: 12px;
+        margin-bottom: 14.4px;
+        overflow-x: auto;
+        padding: 1px;
+        position: relative;
+        border-collapse: collapse;
+    }
+    td, th {
+        padding: 3px;
+        border: 1px solid #000;
+    }
+    th {
+        background: HSL(0, 0%, 93.3%);
+    }
+    tbody tr:hover {
+        background: #FFFFE0;
+    }
+</style>
+<body>
+
+<div th:switch="${worktime}">
+    <h2 th:case="null">Рабочее время отсутствует</h2>
+    <div th:case="*">
+        <h2>Рабочее время сотрудников за две недели:</h2>
+        <table  border="1">
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Количество часов</th>
+                <th>ФИО сотрудника</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="time : ${worktime}">
+                <td th:text="${time.date}">Дата</td>
+                <td align="center" th:text="${time.hours}">Колличество часов</td>
+                <td th:text="${time.executor}">ФИО сотрудника</td>
+            </tr>
+            </tbody>
+        </table>
+        <tr>
+            <td>
+                <a th:href="@{'/main-page'}">Вернуться на главную страницу</a>
+            </td>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

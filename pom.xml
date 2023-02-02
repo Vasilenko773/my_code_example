@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>pom</packaging>
+
+    <groupId>com.example</groupId>
+    <artifactId>mycodeexample</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>mycodeexample</name>
+    <description>mycodeexample</description>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
+    <modules>
+        <module>data</module>
+        <module>mail</module>
+        <module>main</module>
+        <module>tgbot</module>
+        <module>bitrix24</module>
+        <module>redmine_data</module>
+        <module>report</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.7</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>soc.tech</groupId>
+            <artifactId>data</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>soc.tech</groupId>
+            <artifactId>mail</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>soc.tech</groupId>
+            <artifactId>main</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>soc.tech</groupId>
+            <artifactId>tgbot</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>soc.tech</groupId>
+            <artifactId>bitrix24</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>soc.tech</groupId>
+            <artifactId>redmine_data</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>soc.tech</groupId>
+            <artifactId>report</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Просроченные инциденты</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+        }
+
+        table {
+            font-family: Verdana, sans-serif;
+            font-size: 12px;
+            margin-bottom: 14.4px;
+            overflow-x: auto;
+            padding: 1px;
+            position: relative;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            padding: 3px;
+            border: 1px solid #000;
+        }
+
+        th {
+            background: HSL(0, 0%, 93.3%);
+        }
+
+        tbody tr:hover {
+            background: #FFFFE0;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${incidents}">
+    <h2 th:if="${ #lists.isEmpty(incidents)}">Просроченные инциденты отсутствуют</h2>
+    <div th:if="${not #lists.isEmpty(incidents)}">
+        <h2>Инциденты, срок завершения которых истек:</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Номер задачи</th>
+                <th>Наименование</th>
+                <th>Проект</th>
+                <th>Статус</th>
+                <th>Приоритет</th>
+                <th>Исполнитель</th>
+                <th>Дата создания</th>
+                <th>Срок завершения</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="incident : ${incidents}">
+                <td>
+                    <a target="_blank" th:text=" ${incident.id}"
+                       th:href="@{'http://redmine.soctech.loc/issues/' + ${incident.id}}">Номер задачи</a>
+                </td>
+                <td th:text="${incident.name}">Наименование</td>
+                <td th:text="${incident.project}">Проект</td>
+                <td th:text="${incident.status}">Статус</td>
+                <td th:text="${incident.priority}">Приоритет</td>
+                <td th:text="${incident.executor}">Исполнитель</td>
+                <td th:text="${incident.startDate}">Дата создания</td>
+                <td th:text="${incident.dueDate}">Срок завершения</td>
+            </tr>
+            </tbody>
+        </table>
+        <tr>
+            <td>
+                <a th:href="@{'/main-page'}">Вернуться на главную страницу</a>
+            </td>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

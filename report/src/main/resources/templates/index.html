@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <style>
+        body{
+            font-family: Verdana, sans-serif;
+        }
+        table {
+            width: max-content;
+            border-collapse: collapse;
+        }
+        TD, TH {
+            padding: 3px;
+            border: 1px solid black;
+        }
+        th {
+            background: HSL(0, 0%, 93.3%);
+        }
+        tbody tr:hover {
+            background: #FFFFE0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Главная страница</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Отчеты</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <a th:href="@{'/view-dev-and-change-tasks-7-days'}">1.Задачи срок сдачи заказчику - менее 7 дней</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{'/view-dev-and-change-tasks-14-days'}">2. Задачи срок сдачи заказчику - менее 14 дней</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{'/view-open-incidents'}">3. Открытые инциденты</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{'/view-overdue-incidents'}">4. Просроченные инциденты</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{'/view-systems-for-period-index'}">5. Отчет о трудозатратах сотрудников по проектам</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{'/view-employee-for-period-index'}">6. Отчет о трудозатратах сотрудников за период</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{'/view-duedate-less-fact'}">7. Отчет о задачах с превышенными трудозатратами</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{'/view-missing-duedate'}">8. Отчет о задачах с отсутствием оценки временных затрат</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

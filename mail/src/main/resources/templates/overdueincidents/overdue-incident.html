@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Просроченные инциденты</title>
+</head>
+<body>
+
+<div th:switch="${incidents}">
+    <h2 th:if="${ #lists.isEmpty(incidents)}">Просроченные инциденты отсутствуют</h2>
+    <div th:if="${not #lists.isEmpty(incidents)}">
+        <h2>Просроченные инциденты:</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Номер задачи</th>
+                <th>Наименование</th>
+                <th>Проект</th>
+                <th>Статус</th>
+                <th>Приоритет</th>
+                <th>Исполнитель</th>
+                <th>Дата создания</th>
+                <th>Срок завершения</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="incident : ${incidents}">
+                <td>
+                    <a target="_blank" th:text=" ${incident.id}" th:href="@{'http://redmine.soctech.loc/issues/' + ${incident.id}}">Номер
+                        задачи</a>
+                </td>
+                <td th:text="${incident.name}">Наименование</td>
+                <td th:text="${incident.project}">Проект</td>
+                <td th:text="${incident.status}">Статус</td>
+                <td th:text="${incident.priority}">Приоритет</td>
+                <td th:text="${incident.executor}">Исполнитель</td>
+                <td th:text="${incident.startDate}">Дата создания</td>
+                <td th:text="${incident.dueDate}">Срок завершения</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="padding-top: 30px">
+        <tr>
+<!--            <td>-->
+<!--                <a target="_blank" th:href="@{'http://redmine.soctech.loc/issues?utf8=%E2%9C%93&set_filter=1&sort=id%3Adesc&f%5B%5D=status_id&op%5Bstatus_id%5D=o&f%5B%5D=cf_6&op%5Bcf_6%5D=*&f%5B%5D=&c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=subject&c%5B%5D=assigned_to&c%5B%5D=updated_on&c%5B%5D=cf_6&group_by=&t%5B%5D='}">Все инциденты</a>-->
+<!--            </td>-->
+        </tr>
+    </div>
+</div>
+</body>
+</html>
